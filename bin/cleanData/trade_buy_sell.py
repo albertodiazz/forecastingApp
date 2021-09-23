@@ -1,6 +1,4 @@
-from bin.cleanData import trade_history as tdh
-import pandas as pd
-import datetime
+from bin import pd,datetime,tdh
 
 class sell_buy:
     def __init__(self,path,crypto,month,mercado):

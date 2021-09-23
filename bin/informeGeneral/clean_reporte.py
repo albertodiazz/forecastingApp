@@ -1,5 +1,5 @@
-from os import path
-import pandas as pd
+from bin import pd
+from bin import constant as c
 
 class cleanReporte:
     def __init__(self,_data_):
@@ -17,6 +17,6 @@ class cleanReporte:
             'Hora': self.path['Hora']
         })
         self.path = df
-        df.to_csv('data/informe_general/reporte.csv')
+        df.to_csv(c.INFOREPORTE)
         return
 

@@ -1,14 +1,7 @@
-from pandas.core.algorithms import mode
-import requests
-import asyncio
-import json
-import time
-import pandas as pd
-from binance.client import Client
-from datetime import datetime
-import win32api
-import privado.constant as key
-import constant as c
+import json,win32api,time,datetime
+from bin import Client,pd
+from bin import keyApiBinnace as key
+from bin import constant as c
 '''
     WebSocket connections have a limit of 5 incoming messages per second. A message is considered:
         A PING frame
@@ -47,6 +40,19 @@ class binance_data:
         print('Server Time: ', r['serverTime'] )
         tt=time.gmtime(int((r["serverTime"])/1000))
         win32api.SetSystemTime(tt[0],tt[1],0,tt[2],tt[3],tt[4],tt[5],0)   
+    
+    def get_klines(self,_symbol_,_path_,_intervals_='1d',_limit_=1000):
+        # valid intervals - 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M
+        #limit (int) – Default 500; max 1000
+        try:
+            timestamp = self.cliente._get_earliest_valid_timestamp(_symbol_,_intervals_)
+            r = self.cliente.get_historical_klines(_symbol_, _intervals_, timestamp, limit=_limit_)
+            with open(_path_+'/' +_symbol_+'.csv', 'w') as d:
+                for line in r:
+                    d.write(f'{line[0]}, {line[1]}, {line[2]}, {line[3]}, {line[4]}, {line[5]}, {line[6]}\n')
+        except:
+            print('Algo salio Mal en get_Klines en binance_api.py')
+        return r
 
     def get_open_positions(self,_symbol_):
         #Aqui vemos cuales son las posiciones abiertas
@@ -106,7 +112,16 @@ def update_data_historialTrade():
     print('UPDATE HISTORIAL TRADE!')
     return 
 
-if __name__ == "__main__":
+def downloadKlines():
+    print('Download Klines')
+    cliente = binance_data()
+    status = cliente.get_status()
+    cliente.get_klines('BTCUSDT',c.PATHKLINESDATA)
+    return 'Download Finish'
+
+
+def downloadTradeHistory():
+    print('Download Trade History')
     path =  c.PATHJSON
     cliente = binance_data()
     status = cliente.get_status()
@@ -144,5 +159,5 @@ if __name__ == "__main__":
     cliente.save_csv(c.OPENPOSITION,open_position)
     cliente.save_csv(c.CARTERAASSETS,cartera_assets)
 
-    
+    return 'Download Finish'
 

@@ -1,5 +1,5 @@
-import matplotlib.pyplot as plt
-import pandas as pd
+from bin import pd,plt
+from bin import constant as c
 
 class conversionChartsImagenes:
     def __init__(self):

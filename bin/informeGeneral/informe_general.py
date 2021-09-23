@@ -1,8 +1,5 @@
-import pandas as pd
-import json
-
-from pandas.core.frame import DataFrame
-from pandas.io.pytables import performance_doc
+from bin import performance_doc,DataFrame,json,pd
+from bin import constant as c
 
 class info:
     def __init__(self) -> None:
@@ -18,7 +15,7 @@ class info:
         print('')
 
     def info_depositos_pocentaje(self):
-        path = 'data/depositos_comisiones_clientes/depositos.csv'
+        path = c.DEPOSITOS
         read = pd.read_csv(path)
         read.set_index(['Date'],inplace=True)
 
@@ -46,7 +43,7 @@ class info:
         df = self.porcentaje
         df['USDT'] = (self.porcentaje['Porcentaje'] * self.totalUSDT_SPOT) / 100
         print('\n')
-        df.to_csv('data/informe_general/porcentaje_inversionistas.csv')
+        df.to_csv(c.INFOPORCENTAJEINVERSIONISTAS)
         print(df)
         return
 
@@ -54,7 +51,7 @@ class info:
         #OJO tienes que tener cuidad con las posiciones abiertas ya que te las contara como perdidas
         #la ventaja de este sistema es que en teoria te da el total de lo que si puedes retirar y de ahi
         
-        f = open('data/save_price/data.json')
+        f = open(c.PATHJSON)
         data_jason = json.load(f)
         n,p = [],[]
         for _crypto_ in data_jason['crypto_trade'][0]:
@@ -86,7 +83,7 @@ class info:
                                                 'Conversion_USDT': open_usdt
             })
             print('\n OPEN POSITION \n',open_position_data)
-            open_position_data.to_csv('data/informe_general/open_position.csv')            
+            open_position_data.to_csv(c.OPENPOSITION)            
             print('TOTAL', open_position_data['Conversion_USDT'].sum())
         else:
             print("OPEN POSITION IS EMPTY",isempty)
@@ -115,7 +112,7 @@ class info:
                                             'Conversion_USDT': wallet_free_usdt
         })
         print('\n WALLET FREE \n',wallet_free_assets)
-        wallet_free_assets.to_csv('data/informe_general/wallet_free.csv')            
+        wallet_free_assets.to_csv(c.INFOWALLETFREE)            
         print('TOTAL', wallet_free_assets['Conversion_USDT'].sum())
 
         #HISTORIAL TRADE
@@ -183,7 +180,7 @@ class info:
             resultado_inversion = ((reporte_mensual['buy'][int(len(reporte_mensual.index))-1] - reporte_mensual['comision_buy'][int(len(reporte_mensual.index))-1]) - (reporte_mensual['sell'][int(len(reporte_mensual.index))-1] - reporte_mensual['comision_sell'][int(len(reporte_mensual.index))-1]))
             print('\n MOVIMIENTOS Y COMISIONES DE TRADES')
             print(reporte_mensual)
-            reporte_mensual.to_csv('data/informe_general/movimientos_comisiones.csv')            
+            reporte_mensual.to_csv(c.INFOMOVIMIENTOSCOMISIONES)            
             #print('\n',reporte_mensual['balance']+reporte_mensual['spot wallet USDT'])
             resultado = resultado_inversion
             self.totalUSDT_SPOT = totalUSDT_SPOT[0]
@@ -200,7 +197,7 @@ class info:
             info = pd.DataFrame({'Total_spot':totalUSDT_SPOT[0],
                                 'Perdida_Ganancia':reporte_mensual_,
                                 'Porcentaje':porcentaje_ganacia_perdida},index=[0])
-            info.to_csv('data/informe_general/info.csv')
+            info.to_csv(c.INFO)
             
             #PIE DATA CHART
             dp = reporte_mensual.loc[reporte_mensual['spot wallet USDT'] > 0.1]

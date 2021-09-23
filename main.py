@@ -1,17 +1,8 @@
 from os import error
 
-from pandas.core.dtypes.missing import notnull
-from pandas.core.reshape.concat import concat
-from bin.cleanData import preview_data as pwd
-from bin.cleanData import trade_buy_sell as type_sell_buy
-import bin.informeGeneral.data_json_workflow as jsw
-import bin.informeGeneral.informe_general as informe_general
-
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-import constant as c
-import bin.ui.uiChartInforme as uiInforme
+from bin import np,pd,plt,notnull,concat
+from bin import constant as c
+from bin import uiInforme,type_sell_buy,pwd,jsw,informe_general
 
 
 _DATE_INICIO_FONDO = c._DATE_INICIO_FONDO_
@@ -82,20 +73,23 @@ if __name__ == "__main__":
             plt.show()
 
         elif modo == 'INFORME':      
-            forInfo = pd.DataFrame([])
-            forInfo['Moneda'] = names_all
-            forInfo['PrecioUltimo'] = crypto_all.sinNormalizar
-            info.mercado = forInfo
-            info.path_historial = _data_ALL  
+            try:
+                forInfo = pd.DataFrame([])
+                forInfo['Moneda'] = names_all
+                forInfo['PrecioUltimo'] = crypto_all.sinNormalizar
+                info.mercado = forInfo
+                info.path_historial = _data_ALL  
 
-            _buy_ = _type_.get_type(_data_ALL,'buy')
-            _sell_ = _type_.get_type(_data_ALL,'sell')
-            info.get_ganancias_perdias_comision(_buy_,_sell_,clean_data)  
+                _buy_ = _type_.get_type(_data_ALL,'buy')
+                _sell_ = _type_.get_type(_data_ALL,'sell')
+                info.get_ganancias_perdias_comision(_buy_,_sell_,clean_data)  
 
-            info.info_depositos_pocentaje()
-            info.info_dinero_inversionistas()
-            #ESTO NO DEBERIA OCURRIR PERO SI OCURRE QUIERE DECIR QUE ESTOY TENIENDO PROBLEMA EN COMO 
-            #ALMACENO LA DATA (BUNEO AL MENOS ESO CREO)
+                info.info_depositos_pocentaje()
+                info.info_dinero_inversionistas()
+                #ESTO NO DEBERIA OCURRIR PERO SI OCURRE QUIERE DECIR QUE ESTOY TENIENDO PROBLEMA EN COMO 
+                #ALMACENO LA DATA (BUNEO AL MENOS ESO CREO)
+            except:
+                pass
             uiInforme.draw()
             print('DIBUJAA PERRO!!')
 

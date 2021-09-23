@@ -6,10 +6,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import pandas as pd
-from bin.ui.convertChartsImage import chartsVisuales as chrt
-from bin.ui import constant as c
+
 from PIL import Image, ImageTk
 import io
+
+from bin import chrt
+from bin import constant as c
 
 plt.style.use(c.ESTILOMATPLOIT)
 
@@ -25,8 +27,8 @@ def get_img_data(f, first=False):
 
 class uiChartInforme:
     def __init__(self):
+        sg.theme('black')
         self._Window_ = None
-        self._Theme_ = 'black'
         self.AppFont_ = 'Any 16'
         self._layout_ =  None
         self.color = c.HEXCOLOR
@@ -36,8 +38,18 @@ class uiChartInforme:
         self.headersTable = None
         return
 
-    def _layout_setup(self):
-        sg.theme(self._Theme_)
+    def _layout_main(self):
+        self._layout_ = [
+            [
+                sg.Button('Download',key='--Download--',enable_events=True),
+                sg.Button('Normal',key='--Normal--',enable_events=True),
+                sg.Button('Informe',key='--Informe--',enable_events=True)
+            ]
+        ]
+        return self._layout_
+
+    def _layout_informe(self):
+
         hexGreen = '#007f00'
         hexRed = '#cc2900'
         colorPerdidaGanancia,simbolo = None,None
@@ -49,6 +61,7 @@ class uiChartInforme:
             simbolo = '-'
         resultadoPorcentaje = simbolo + str(round(float(ui.percentPerdidaGanancia),2)) + '%'
         resultadoTotalUSDT = 'USDT: $'+ str(round(float(self.TotalWallet_USDT),2))
+
         self._layout_ = [
                 [   
                     [
@@ -97,9 +110,8 @@ class uiChartInforme:
 ui = uiChartInforme()
 
 def draw():
-    print('estamos tratando de leer')
-    wallet_free_assets = pd.read_csv(c.WALLETFREE,index_col=0)
-    movimientos_comisiones = pd.read_csv(c.MOVIMIENTOSCOMISIONES,index_col=0, engine='python',header=None)
+    wallet_free_assets = pd.read_csv(c.INFOWALLETFREE,index_col=0)
+    movimientos_comisiones = pd.read_csv(c.INFOMOVIMIENTOSCOMISIONES,index_col=0, engine='python',header=None)
     info = pd.read_csv(c.INFO,index_col=0)
 
     ui.TotalWallet_USDT = info['Total_spot'][0]
@@ -108,11 +120,19 @@ def draw():
     ui.movimientosComisiones = movimientos_comisiones.values.tolist()
 
     chartsVisuales = chrt.visualesCharts(c.ESTILOMATPLOIT,c.HEXCOLOR)
-    print('Hasta Aqui funciona')
-    _WINDOWS = ui._window_setup(ui._layout_setup())
+    
+
+    _WINDOWS = ui._window_setup(ui._layout_main())
 
     while True:
         event, values = _WINDOWS.read()
+        if event == '--Normal--':
+            print('Main UI')
+
+        if event == '--Informe--':
+            print('Informe UI')
+            _WINDOWS = ui._window_setup(ui._layout_informe())
+
         if event == sg.WIN_CLOSED or event == 'Exit':
             break
     _WINDOWS.close()

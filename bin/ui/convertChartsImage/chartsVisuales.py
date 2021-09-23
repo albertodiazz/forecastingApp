@@ -1,6 +1,4 @@
-import matplotlib.pyplot as plt
-from numpy import info
-import pandas as pd
+from bin import pd,info,plt
 
 class visualesCharts:
     def __init__(self,matploitstyle,hexcolor):
