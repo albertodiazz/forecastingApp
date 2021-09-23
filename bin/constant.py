@@ -27,17 +27,12 @@ ESTILOMATPLOIT = 'Solarize_Light2'
 HEXCOLOR = '#FDF6E3'
 
 UIINFORMES = 'data/UI/informes/'
-WALLETFREE = 'data/informe_general/wallet_free.csv'
-MOVIMIENTOSCOMISIONES = 'data/informe_general/movimientos_comisiones.csv'
-INFO = 'data/informe_general/info.csv'
-PORCENTAJEINVERSIONISTAS = 'data/informe_general/porcentaje_inversionistas.csv'
-
 
 
 PATHCOINGECKO = 'data/save_price'
 PATHJSON = 'data/save_price/data.json'
 HISTORIALTRADEUPDATE = 'data/trade_history/update/historial_trade_update.csv'
-HISTORIALTRADE = 'data/trade_history/update/historial_trade_update.csv'
+HISTORIALTRADE = 'data/trade_history/historial_trade.csv'
 OPENPOSITION = 'data/trade_history/open_position.csv'
 CARTERAASSETS = 'data/trade_history/cartera_assets.csv'
 PATHKLINESDATA = 'data/klinesBinance' 

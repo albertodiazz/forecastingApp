@@ -23,12 +23,12 @@ if __name__ == "__main__":
     #normal,informe
     _MODO_ = c._MODO_
 
-    path_grafica = 'data/save_price/'+_CRYPTO_+'.csv'
-    path_historial = 'data/trade_history/historial_trade.csv'
+    path_grafica = c.PATHCOINGECKO + '/' +_CRYPTO_+'.csv'
+    path_historial = c.HISTORIALTRADE
 
     info = informe_general.info()
-    info.openPosition = pd.read_csv('data/trade_history/open_position.csv',index_col=0)
-    info.carteraSpot =  pd.read_csv('data/trade_history/cartera_assets.csv',index_col=0)
+    info.openPosition = pd.read_csv(c.OPENPOSITION,index_col=0)
+    info.carteraSpot =  pd.read_csv(c.CARTERAASSETS,index_col=0)
 
     dataIN = pd.read_csv(path_grafica,index_col=0)
     mercado_ = mercado_historial(dataIN,_MESES_) 

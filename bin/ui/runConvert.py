@@ -7,7 +7,7 @@ def run():
     wallet_free_assets = pd.read_csv(c.INFOWALLETFREE,index_col=0)
     movimientos_comisiones = pd.read_csv(c.INFOMOVIMIENTOSCOMISIONES,index_col=0)
     info = pd.read_csv(c.INFO,index_col=0)
-    porcentajeInversionistas = pd.read_csv(c.PORCENTAJEINVERSIONISTAS)
+    porcentajeInversionistas = pd.read_csv(c.INFOPORCENTAJEINVERSIONISTAS)
 
     charts = chrt.visualesCharts(c.ESTILOMATPLOIT,c.HEXCOLOR)
     
