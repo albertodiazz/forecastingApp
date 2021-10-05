@@ -6,13 +6,13 @@ from pandas.core.reshape.concat import concat
 
 import PySimpleGUI as sg
 import numpy as np
-import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import pandas as pd
 from PIL import Image, ImageTk
 from os import path, read
 
 import matplotlib.pyplot as plt
+import pandas as pd
+
 from numpy import info
 
 from datetime import date
@@ -57,7 +57,7 @@ from bin.cleanData import trade_buy_sell as type_sell_buy
 #LIBRERIAS PARA DESCARGAR DATA
 from bin.downloadData.binace_api import downloadTradeHistory
 from bin.downloadData.binace_api import downloadKlines
-from bin.downloadData.coingecko_download import startDownload
+from bin.downloadData.coingecko_download import startDownload as startDownloadCoingecko
 
 #LIBRERIA PARA CORRER CONVERSION DE IMAGEN
-from bin.ui import runConvert 
+from bin.ui.runConvert import run as convertUi

@@ -1,4 +1,4 @@
-from bin import date,relativedelta
+from bin import date,relativedelta,pd
 
 #Cuando compro me cobran el FEE en la moneda cripto
 #Al vender me los cobran en USDT
@@ -22,6 +22,7 @@ class trade_history:
 
     def rango_tiempo(self,rango):
         #Esto esta seteado para la data de coingecko 
+        #print('///',self.read)
         try:
             self.read = self.read.set_index(['Date(UTC)'])
         except:

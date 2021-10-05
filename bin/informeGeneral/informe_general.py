@@ -83,7 +83,7 @@ class info:
                                                 'Conversion_USDT': open_usdt
             })
             print('\n OPEN POSITION \n',open_position_data)
-            open_position_data.to_csv(c.OPENPOSITION)            
+            open_position_data.to_csv(c.INFOOPENPOSITION)            
             print('TOTAL', open_position_data['Conversion_USDT'].sum())
         else:
             print("OPEN POSITION IS EMPTY",isempty)
