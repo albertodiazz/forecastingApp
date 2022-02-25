@@ -1,9 +1,4 @@
-import json
-from os import name
-import pandas as pd
-from datetime import date
-from dateutil.relativedelta import relativedelta
-import bin.informeGeneral.clean_reporte as clsR
+from bin import clsR,relativedelta,date,pd,json
 
 class json_workflow:
     def __init__(self):

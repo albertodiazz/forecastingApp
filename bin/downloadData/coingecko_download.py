@@ -4,12 +4,8 @@ data.JSON, el cual funge como una lista de las crypto que acutlamente tradeo, es
 manualmente. En cuanto a los precios, no baja margenes de precio de entrada y cierre solo es data para una previzualisacion general
 de las graficas
 '''
-import pandas as pd
-import numpy as np
-from pycoingecko import CoinGeckoAPI
-import time
-import json
-import constant as c
+from bin import pd,np,time,json,CoinGeckoAPI
+from bin import constant as c
 
 path =  c.PATHCOINGECKO
 #esto no lo borre por que no me afecta
@@ -55,7 +51,7 @@ def api_gecko(path_,output_file_,_id_,name_save_file):
     return status_gecko
 
 
-if __name__ == "__main__":
+def startDownload():
     data = get_lista_json(lista_cryptos)
 
     try:
